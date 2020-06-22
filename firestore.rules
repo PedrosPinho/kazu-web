@@ -1,0 +1,23 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{userId}/{document=**} {
+      allow create;
+      allow read, update: if userId == request.auth.uid;
+    }
+    match /user_kpi/{userId}/kpis/{document=**} {
+      allow read, update, create: if userId == request.auth.uid;
+    }
+    match /user_movimentacao/{userId}/movimentacoes/{document=**}  {
+      allow read, update, create: if userId == request.auth.uid;
+    }
+    match /user_conta/{userId}/contas/{document=**}  {
+      allow read, create, delete, update: if userId == request.auth.uid;
+    }
+    match /user_categoria/{userId}/categorias/{document=**}  {
+      allow read, create, delete, update: if userId == request.auth.uid;
+    }
+  }
+}
+
+
